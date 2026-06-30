@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import MallMap from "./components/MallMap";
-import StoreDetails from "./components/StoreDetails";
+import MapPopup from "./components/MapPopup";
 type Store = {
   id: number;
   name: string;
@@ -12,10 +12,19 @@ type Store = {
   closingHour: string;
   products: string[];
 };
+type SelectedStore = {
+  id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+} | null;
 
 function App() {
-  const [stores, setStores] = useState<Store[]>([]);
-  const [selectedStore, setSelectedStore] = useState<number | null>(null);
+const [stores, setStores] = useState<Store[]>([]);
+const [selectedStore, setSelectedStore] =
+  useState<SelectedStore>(null);
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/stores")
       .then((response) => response.json())
@@ -75,9 +84,10 @@ return (
   selectedStore={selectedStore}
   setSelectedStore={setSelectedStore}
 />
+<MapPopup selectedStore={selectedStore} />
+
         </div>
       </div>
-  <StoreDetails storeId={selectedStore} />
     </div>
   </>
 );

@@ -27,10 +27,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   max-width: 450px;
 
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  z-index: 1000;
 }
 
 .store-card li {

@@ -10,16 +10,29 @@ type Store = {
 
 type MallMapProps = {
   stores: Store[];
-  selectedStore: number | null;
-  setSelectedStore: (id: number | null) => void;
-  setPopupPosition: (position: { x: number; y: number }) => void;
+  selectedStore: {
+  id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+} | null;
+  setSelectedStore: (
+  store: {
+    id: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null
+) => void;
+
 };
 
 function MallMap({
   stores,
   selectedStore,
   setSelectedStore,
-  setPopupPosition,
 }: MallMapProps) {
   return (
     <svg width="100%" height="100%" viewBox="0 0 800 600">
@@ -31,25 +44,33 @@ function MallMap({
         rx="20"
         fill="#f8f8f8"
         stroke="#cccccc"
+        
       />
 
       {stores.map((store) => (
         <g
           key={store.id}
-          onClick={() => {
-  if (selectedStore === store.id) {
+         onClick={(event) => {
+  const rect = (
+    event.currentTarget as SVGGElement
+  ).getBoundingClientRect();
+
+  console.log(rect);
+
+  if (selectedStore?.id === store.id) {
     setSelectedStore(null);
     return;
   }
 
-  setSelectedStore(store.id);
-
-  setPopupPosition({
-    x: store.x + store.width + 20,
-    y: store.y,
+  setSelectedStore({
+    id: store.id,
+    x: rect.right + 15,
+    y: rect.top,
+    width: rect.width,
+    height: rect.height,
   });
 }}
-          style={{ cursor: "pointer" }}
+         style={{ cursor: "pointer" }}
         >
           <rect
             x={store.x}
@@ -57,7 +78,7 @@ function MallMap({
             width={store.width}
             height={store.height}
             rx="10"
-            fill={selectedStore === store.id ? "#1976d2" : store.color}
+            fill={selectedStore?.id === store.id ? "#1976d2" : store.color}
           />
 
           <text
@@ -72,6 +93,7 @@ function MallMap({
         </g>
       ))}
     </svg>
+    
   );
 }
 
