@@ -6,7 +6,7 @@ class Store(BaseModel):
     name: str
     category: str
     floor: int
-    description: str
     phone: str
     closingHour: str
+    description: str
     products: list[str]

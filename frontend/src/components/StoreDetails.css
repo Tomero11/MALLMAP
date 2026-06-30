@@ -1,0 +1,28 @@
+.store-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 450px;
+}
+
+.store-card h2 {
+  margin-bottom: 20px;
+}
+
+.store-card p {
+  margin: 10px 0;
+}
+
+.store-card h3 {
+  margin-top: 20px;
+}
+
+.store-card ul {
+  padding-left: 20px;
+}
+
+.store-card li {
+  margin-bottom: 6px;
+}

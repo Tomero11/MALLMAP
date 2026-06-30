@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from app.models.store import Store
 
 router = APIRouter()
@@ -52,8 +52,13 @@ stores = [
 def get_stores():
     return stores
 
+@router.get("/stores/{store_id}", response_model=Store)
+def get_store(store_id: int):
+    for store in stores:
+        if store["id"] == store_id:
+            return store
 
-@router.post("/stores")
-def add_store(store: Store):
-    stores.append(store)
-    return store
+    raise HTTPException(
+        status_code=404,
+        detail="Store not found"
+    )

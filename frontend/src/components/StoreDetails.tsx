@@ -1,31 +1,67 @@
-type Props = {
-  storeName: string | null;
+import { useEffect, useState } from "react";
+import "./StoreDetails.css";
+
+type Store = {
+  id: number;
+  name: string;
+  category: string;
+  floor: number;
+  phone: string;
+  closingHour: string;
+  description: string;
+  products: string[];
 };
 
-function StoreDetails({ storeName }: Props) {
-  if (!storeName) {
-    return (
-      <div style={{ padding: "20px" }}>
-        בחר חנות כדי לראות פרטים.
-      </div>
-    );
-  }
+type Props = {
+  storeId: number | null;
+};
 
+function StoreDetails({ storeId }: Props) {
+  const [store, setStore] = useState<Store | null>(null);
+
+  useEffect(() => {
+    if (storeId === null) {
+      setStore(null);
+      return;
+    }
+
+    fetch(`http://127.0.0.1:8000/stores/${storeId}`)
+      .then((response) => response.json())
+      .then((data) => setStore(data));
+  }, [storeId]);
+
+  if (!store) {
   return (
-    <div
-      style={{
-        background: "white",
-        padding: "20px",
-        borderTop: "1px solid #ddd",
-      }}
-    >
-      <h2>🏬 {storeName}</h2>
-
-      <p>📍 קומה 1</p>
-      <p>🏷️ Electronics</p>
-      <p>🕒 פתוח עד 22:00</p>
+    <div style={{ padding: "20px" }}>
+      בחר חנות כדי לראות פרטים.
     </div>
   );
 }
 
+return (
+  <div className="store-card">
+    <h2>🏬 {store.name}</h2>
+
+    <p>📍 <strong>קומה:</strong> {store.floor}</p>
+
+    <p>🏷️ <strong>קטגוריה:</strong> {store.category}</p>
+
+    <p>📞 <strong>טלפון:</strong> {store.phone}</p>
+
+    <p>🕒 <strong>פתוח עד:</strong> {store.closingHour}</p>
+
+    <hr />
+
+    <p>{store.description}</p>
+
+    <h3>🛍️ מוצרים</h3>
+
+    <ul>
+      {store.products.map((product) => (
+        <li key={product}>{product}</li>
+      ))}
+    </ul>
+  </div>
+);
+}
 export default StoreDetails;

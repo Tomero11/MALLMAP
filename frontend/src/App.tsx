@@ -77,11 +77,7 @@ return (
 />
         </div>
       </div>
-      <StoreDetails
-  storeName={
-    stores.find((s) => s.id === selectedStore)?.name ?? null
-  }
-/>
+  <StoreDetails storeId={selectedStore} />
     </div>
   </>
 );
