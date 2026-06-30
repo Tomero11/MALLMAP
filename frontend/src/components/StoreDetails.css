@@ -19,8 +19,18 @@
   margin-top: 20px;
 }
 
-.store-card ul {
-  padding-left: 20px;
+.store-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 450px;
+
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 1000;
 }
 
 .store-card li {

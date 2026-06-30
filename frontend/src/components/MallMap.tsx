@@ -11,13 +11,15 @@ type Store = {
 type MallMapProps = {
   stores: Store[];
   selectedStore: number | null;
-  setSelectedStore: (id: number) => void;
+  setSelectedStore: (id: number | null) => void;
+  setPopupPosition: (position: { x: number; y: number }) => void;
 };
 
 function MallMap({
   stores,
   selectedStore,
   setSelectedStore,
+  setPopupPosition,
 }: MallMapProps) {
   return (
     <svg width="100%" height="100%" viewBox="0 0 800 600">
@@ -34,7 +36,19 @@ function MallMap({
       {stores.map((store) => (
         <g
           key={store.id}
-          onClick={() => setSelectedStore(store.id)}
+          onClick={() => {
+  if (selectedStore === store.id) {
+    setSelectedStore(null);
+    return;
+  }
+
+  setSelectedStore(store.id);
+
+  setPopupPosition({
+    x: store.x + store.width + 20,
+    y: store.y,
+  });
+}}
           style={{ cursor: "pointer" }}
         >
           <rect
