@@ -14,9 +14,10 @@ type Store = {
 
 type Props = {
   storeId: number | null;
+  onClose: () => void;
 };
 
-function StoreDetails({ storeId }: Props) {
+function StoreDetails({ storeId, onClose }: Props) {
   const [store, setStore] = useState<Store | null>(null);
 
   useEffect(() => {
@@ -40,6 +41,12 @@ function StoreDetails({ storeId }: Props) {
 
 return (
   <div className="store-card">
+    <button
+  className="close-button"
+  onClick={onClose}
+>
+  ✕
+</button>
     <h2>🏬 {store.name}</h2>
 
     <p>📍 <strong>קומה:</strong> {store.floor}</p>

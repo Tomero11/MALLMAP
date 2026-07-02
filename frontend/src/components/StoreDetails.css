@@ -1,10 +1,15 @@
 .store-card {
+  position: relative;
+
   background: white;
   border-radius: 12px;
   padding: 24px;
   margin: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   max-width: 450px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  animation: popupFade 0.2s ease;
 }
 
 .store-card h2 {
@@ -19,16 +24,49 @@
   margin-top: 20px;
 }
 
-.store-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  margin: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  max-width: 450px;
-
-}
-
 .store-card li {
   margin-bottom: 6px;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 32px;
+  height: 32px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+  color: #555;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: #eeeeee;
+  color: black;
+}
+
+@keyframes popupFade {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

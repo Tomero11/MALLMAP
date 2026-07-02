@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import MallMap from "./components/MallMap";
 import MapPopup from "./components/MapPopup";
+import { AnimatePresence } from "framer-motion";
 type Store = {
   id: number;
   name: string;
@@ -36,9 +37,18 @@ const [searchText, setSearchText] = useState("");
       .then((response) => response.json())
       .then((data) => setStores(data));
   }, []);
-const filteredStores = stores.filter((store) =>
-  store.name.toLowerCase().includes(searchText.toLowerCase())
-);
+const filteredStores = stores.filter((store) => {
+  const search = searchText.toLowerCase();
+
+  return (
+    store.name.toLowerCase().includes(search) ||
+    store.category.toLowerCase().includes(search) ||
+    store.products.some((product) =>
+      product.toLowerCase().includes(search)
+    )
+  );
+});
+
 
 return (
     <div className="app">
@@ -51,39 +61,51 @@ return (
   className="search"
   placeholder="🔍 חפש חנות..."
   value={searchText}
-  onChange={(e) => setSearchText(e.target.value)}
-/>
-{stores
-  .filter((store) =>
-    store.name.toLowerCase().includes(searchText.toLowerCase())
-  )
-  .map((store) => (
+  onChange={(e) => setSearchText(e.target.value)}/>
+  {filteredStores.map((store) => (
   <div
     className="store"
     key={store.id}
-   onClick={() =>
-  setSelectedStore({
-    id: store.id,
-    x: store.x,
-    y: store.y,
-    width: store.width,
-    height: store.height,
-  })
-}
-    style={{ cursor: "pointer" }}
+    onClick={() => {
+      if (selectedStore?.id === store.id) {
+        setSelectedStore(null);
+        return;
+      }
+
+      setSelectedStore({
+        id: store.id,
+        x: store.x,
+        y: store.y,
+        width: store.width,
+        height: store.height,
+      });
+    }}
+    style={{
+      cursor: "pointer",
+      backgroundColor:
+        selectedStore?.id === store.id ? "#e3f2fd" : "transparent",
+      borderRadius: "8px",
+    }}
   >
     🏬 {store.name}
   </div>
 ))}
-
-</div>
+ 
+ </div>
         <div className="map">
           <MallMap
            stores={filteredStores}
            selectedStore={selectedStore}
            setSelectedStore={setSelectedStore}
 />
-<MapPopup selectedStore={selectedStore} />
+<AnimatePresence>
+  {selectedStore && (
+    <MapPopup
+      selectedStore={selectedStore}
+      setSelectedStore={setSelectedStore}
+    />
+  )}
+</AnimatePresence>
 
         </div>
       </div>
