@@ -10,3 +10,9 @@ class Store(BaseModel):
     closingHour: str
     description: str
     products: list[str]
+
+    x: int
+    y: int
+    width: int
+    height: int
+    color: str

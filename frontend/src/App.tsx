@@ -11,6 +11,11 @@ type Store = {
   phone: string;
   closingHour: string;
   products: string[];
+   x: number;
+   y: number;
+   width: number;
+   height: number;
+   color: string;
 };
 type SelectedStore = {
   id: number;
@@ -94,9 +99,9 @@ return (
 </div>
         <div className="map">
           <MallMap
- stores={filteredStores}
-  selectedStore={selectedStore}
-  setSelectedStore={setSelectedStore}
+           stores={filteredStores}
+           selectedStore={selectedStore}
+           setSelectedStore={setSelectedStore}
 />
 <MapPopup selectedStore={selectedStore} />
 

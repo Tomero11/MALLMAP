@@ -16,7 +16,13 @@ stores = [
             "iPhone",
             "Galaxy",
             "AirPods"
-        ]
+        ],
+        "x": 80,
+        "y": 80,
+        "width": 150,
+        "height": 100,
+        "color": "#90caf9"
+
     },
     {
         "id": 2,
@@ -30,7 +36,12 @@ stores = [
             "Jeans",
             "T-Shirts",
             "Shoes"
-        ]
+        ],
+        "x": 500,
+        "y": 80,
+        "width": 150,
+        "height": 100,
+        "color": "#ce93d8"
     },
     {
         "id": 3,
@@ -44,7 +55,12 @@ stores = [
             "Medicine",
             "Shampoo",
             "Perfume"
-        ]
+        ],
+        "x": 280,
+        "y": 350,
+        "width": 220,
+        "height": 100,
+        "color": "#a5d6a7"
     }
 ]
 
