@@ -1,8 +1,8 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import MallMap from "./components/MallMap";
 import MapPopup from "./components/MapPopup";
 import { AnimatePresence } from "framer-motion";
+import MallGeoMap from "./components/MallGeoMap";
 type Store = {
   id: number;
   name: string;
@@ -93,10 +93,8 @@ return (
  
  </div>
         <div className="map">
-          <MallMap
-           stores={filteredStores}
-           selectedStore={selectedStore}
-           setSelectedStore={setSelectedStore}
+          <MallGeoMap
+          
 />
 <AnimatePresence>
   {selectedStore && (

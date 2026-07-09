@@ -1,5 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from app.models.store import Store
+from pathlib import Path
+import json
 
 router = APIRouter()
 
@@ -64,6 +66,7 @@ stores = [
     }
 ]
 
+DATA_FILE = Path(__file__).parent.parent.parent / "data" / "mall_hof.json"
 @router.get("/stores", response_model=list[Store])
 def get_stores():
     return stores
@@ -78,3 +81,8 @@ def get_store(store_id: int):
         status_code=404,
         detail="Store not found"
     )
+@router.get("/malls/hof/stores")
+def get_hof_stores():
+
+    with open(DATA_FILE, "r", encoding="utf-8") as file:
+        return json.load(file)
